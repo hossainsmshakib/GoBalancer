@@ -34,6 +34,29 @@ $ cd <repository-folder>
   - DuckDuckGo (`https://www.duckduckgo.com`)
 - You can modify the `servers` slice in `main.go` to add or remove backend servers.
 
+## Architecture Diagram
+Below is a simple architecture diagram illustrating how GoBalancer distributes incoming requests to the backend servers.
+
+```
+                  +---------------------+
+                  |     Client          |
+                  +---------+-----------+
+                            |
+                            v
+                  +---------------------+
+                  |    GoBalancer        |
+                  |   (Load Balancer)    |
+                  +---------+-----------+
+                            |
+            --------------------------------
+            |               |              |
+            v               v              v
++----------------+  +----------------+  +----------------+
+|  Facebook      |  |     Bing        |  |  DuckDuckGo   |
+| (Backend 1)    |  |  (Backend 2)    |  | (Backend 3)   |
++----------------+  +----------------+  +----------------+
+```
+
 ## Code Overview
 ### `Server` Interface
 ```go
