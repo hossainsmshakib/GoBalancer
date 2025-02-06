@@ -1,12 +1,13 @@
-# Load Balancer in Go
+# GoBalancer - A Simple Load Balancer in Go
 
-This is a simple load balancer implementation in Go that forwards requests to different backend servers using a round-robin algorithm.
+GoBalancer is a lightweight and efficient load balancer implemented in Go. It distributes incoming HTTP requests to multiple backend servers using a round-robin algorithm.
 
 ## Features
-- Implements a reverse proxy using `httputil.ReverseProxy`.
-- Uses round-robin load balancing to distribute requests across multiple servers.
-- Checks if a server is alive before forwarding requests.
-- Logs forwarded requests.
+- **Reverse Proxy Support**: Uses `httputil.ReverseProxy` to forward requests to backend servers.
+- **Round-Robin Load Balancing**: Distributes incoming requests evenly among available servers.
+- **Health Check (Basic)**: Skips forwarding requests to unresponsive servers.
+- **Logging**: Logs request forwarding details for better debugging.
+- **Customizable Backend Servers**: Easily configure backend server addresses in the code.
 
 ## Installation
 Ensure you have Go installed on your system. If not, download and install it from [golang.org](https://golang.org/).
@@ -18,16 +19,16 @@ $ cd <repository-folder>
 ```
 
 ## Usage
-### Running the Load Balancer
+### Running GoBalancer
 1. Open a terminal and navigate to the project folder.
-2. Run the following command to start the load balancer:
+2. Run the following command to start GoBalancer:
    ```sh
    $ go run main.go
    ```
 3. The load balancer will start listening on `localhost:3000`.
 
 ### Configuration
-- The load balancer currently forwards requests to three predefined servers:
+- GoBalancer currently forwards requests to three predefined servers:
   - Facebook (`https://www.facebook.com`)
   - Bing (`https://www.bing.com`)
   - DuckDuckGo (`https://www.duckduckgo.com`)
@@ -42,7 +43,7 @@ type Server interface {
     Serve(rw http.ResponseWriter, req *http.Request)
 }
 ```
-Defines the basic structure of a server that the load balancer interacts with.
+Defines the basic structure of a server that GoBalancer interacts with.
 
 ### `simpleServer` Struct
 ```go
@@ -58,7 +59,7 @@ Represents a simple reverse proxy server.
 - Implements the `getNextAvailableServer` method to find the next available server.
 - The `serveProxy` function forwards the request to the selected server.
 
-### Start the Load Balancer
+### Start GoBalancer
 ```go
 func main() {
     servers := []Server{
@@ -79,7 +80,7 @@ func main() {
 ```
 
 ## Example Request
-Once the load balancer is running, send a request using curl:
+Once GoBalancer is running, send a request using curl:
 ```sh
 $ curl http://localhost:3000
 ```
